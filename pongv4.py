@@ -3,7 +3,8 @@ import time
 from tracemalloc import start
 import turtle
 import numpy as np
-# turtle.bgpic('images/pong_background.jpg')
+import sys
+import os
  
  
 # Create screen
