@@ -16,6 +16,7 @@ import os
 
 #os.chdir("..")
 
+from win32api import GetSystemMetrics
 
 def pong_game():
             
@@ -39,17 +40,17 @@ def pong_game():
             break
 
 
-        # set game settings
-    lives = 1
+    # set game settings
+    lives = 3
 
     # Create screen
     sc = turtle.Screen()
     sc.title("Pong game")
-    # sc.bgcolor("white")
-    sc.setup(width=1000, height=1000)
+    sc.bgcolor("white")
+    sc.setup(width=GetSystemMetrics(0), height=GetSystemMetrics(1))
 
-    print(os.getcwd())
-    sc.bgpic(f'img/pong_background.gif')
+    # print(os.getcwd())
+    # sc.bgpic(f'img/pong_background.gif')
 
 
     # Left paddle
@@ -80,8 +81,8 @@ def pong_game():
     hit_ball.penup()
     hit_ball.goto(0, 0)
     # start ball speed
-    hit_ball.dx = 40
-    hit_ball.dy = -40
+    hit_ball.dx = 20
+    hit_ball.dy = -20
 
 
     # Initialize the score
@@ -101,9 +102,9 @@ def pong_game():
     sketch.color("blue")
     sketch.penup()
     sketch.hideturtle()
-    sketch.goto(0, 260)
-    sketch.write("Lives: 3   Level: 0",
-                align="center", font=("Courier", 24, "normal"))
+    sketch.goto(0, 400)
+    # sketch.write("Lives: 3   Level: 0",
+    #             align="center", font=("Courier", 24, "normal"))
 
 
     # Functions to move paddle vertically
@@ -167,7 +168,8 @@ def pong_game():
     tmp_var = 0
 
     turtle.speed(0)
-
+    # sc.tracer(1, 10)
+    cnt = 1
     while lives > 0:
         sc.update()
 
@@ -175,10 +177,14 @@ def pong_game():
         print(turtle.speed())
         tmp_var = time.time()
         score = int(score + (np.abs(hit_ball.dx) / 5))
-        sketch.clear()
-        sketch.write("Lives : {}      Score: {}".format(
-                        lives, score), align="center",
-                        font=("Courier", 24, "normal"))
+
+        cnt = cnt + 1
+
+        if (cnt % 30 == 0):
+            sketch.clear()
+            sketch.write("Lives : {}      Score: {}".format(
+                            lives, score), align="center",
+                            font=("Courier", 24, "normal"))
 
         # fix for ray-cast problem right paddle
         if (hit_ball.xcor() + hit_ball.dx > (right_pad.xcor() - 40)) and hit_ball.dx > 0:
