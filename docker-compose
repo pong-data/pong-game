@@ -1,4 +1,4 @@
 environment:
-  - DISPLAY=${HOSTNAME}:0
+  - DISPLAY=${HOSTNAME}:0.0
   volumes:
   - /tmp/.X11-unix:/tmp/.X11-unix

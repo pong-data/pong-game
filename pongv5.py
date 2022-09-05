@@ -1,25 +1,22 @@
-
-# To_Do
-
-# - ask for contact info beginning of the game
-# - Create dockerfile
-# - Create scoring method
-# - Save scores and info in a csv
-# - adjust speed of bat when speed of ball increases
-
 # Import required library
 import time
 from tracemalloc import start
-import turtle
 import numpy as np
 import os
 
+# if os.environ.get('DISPLAY','') == '':
+#     print('no display found. Using 0.0')
+#     os.environ.__setitem__('DISPLAY', 'localhost:0.0')
+
+import turtle
+# import pyautogui
+
 #os.chdir("..")
 
-from win32api import GetSystemMetrics
-
 def pong_game():
-            
+    # width, height= pyautogui.size()
+    width=1200
+    height=800
 
     # ask for contact info
     while True:
@@ -46,8 +43,8 @@ def pong_game():
     # Create screen
     sc = turtle.Screen()
     sc.title("Pong game")
-    sc.bgcolor("white")
-    sc.setup(width=GetSystemMetrics(0), height=GetSystemMetrics(1))
+    sc.bgcolor("black")
+    sc.setup(width=width, height=height)
 
     # print(os.getcwd())
     # sc.bgpic(f'img/pong_background.gif')
@@ -57,7 +54,7 @@ def pong_game():
     left_pad = turtle.Turtle()
     left_pad.speed(0)
     left_pad.shape("square")
-    left_pad.color("black")
+    left_pad.color("white")
     left_pad.shapesize(stretch_wid=6, stretch_len=2)
     left_pad.penup()
     left_pad.goto(-400, 0)
@@ -77,7 +74,7 @@ def pong_game():
     hit_ball = turtle.Turtle()
     hit_ball.speed(0)
     hit_ball.shape("circle")
-    hit_ball.color("orange")
+    hit_ball.color("white")
     hit_ball.penup()
     hit_ball.goto(0, 0)
     # start ball speed
@@ -103,8 +100,8 @@ def pong_game():
     sketch.penup()
     sketch.hideturtle()
     sketch.goto(0, 400)
-    # sketch.write("Lives: 3   Level: 0",
-    #             align="center", font=("Courier", 24, "normal"))
+    sketch.write("Lives: 3   Score: 0",
+                align="center", font=("Courier", 24, "normal"))
 
 
     # Functions to move paddle vertically
@@ -182,6 +179,7 @@ def pong_game():
 
         if (cnt % 30 == 0):
             sketch.clear()
+            sketch.pencolor("white")
             sketch.write("Lives : {}      Score: {}".format(
                             lives, score), align="center",
                             font=("Courier", 24, "normal"))
